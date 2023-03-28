@@ -1,4 +1,4 @@
-package com.demo.api.handler;
+package com.demo.api.exception.handler;
 
 import com.demo.api.exception.CustomerException;
 import com.demo.api.exception.RewardsException;
@@ -22,18 +22,24 @@ public class AppResponseExceptionHandler extends ResponseEntityExceptionHandler 
 
     /**
      * method to handle exception
+     *
      * @param ex
      * @param request
      * @return
      */
-    @ExceptionHandler(value
-            = {RuntimeException.class})
+    @ExceptionHandler(value = {RuntimeException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
-     if(ex instanceof RewardsException || ex instanceof TransactionException || ex instanceof CustomerException) {
-         return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(),HttpStatus.BAD_REQUEST);
-     } else {
-         return new ResponseEntity<>(String.format("Failed to process the request please try after some times errorMessage = [%s]", ex.getMessage()), new HttpHeaders(), HttpStatus.BAD_REQUEST);
-     }
+        if (ex instanceof RewardsException
+                || ex instanceof TransactionException
+                || ex instanceof CustomerException) {
+            return new ResponseEntity<>(ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST);
+        } else {
+            return new ResponseEntity<>(
+                    String.format(
+                            "Failed to process the request please try after some times errorMessage = [%s]",
+                            ex.getMessage()),
+                    new HttpHeaders(),
+                    HttpStatus.BAD_REQUEST);
+        }
     }
-
 }

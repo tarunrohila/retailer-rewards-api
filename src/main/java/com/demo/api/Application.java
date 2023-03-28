@@ -14,21 +14,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
-	/**
-	 * Logger declaration.
-	 */
-	private static final Logger LOGGER = LogManager.getLogger(Application.class);
+    /** Logger declaration. */
+    private static final Logger LOGGER = LogManager.getLogger(Application.class);
 
-	/**
-	 * Main method to initialize the spring boot api
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		try {
-			SpringApplication.run(Application.class, args);
-		} catch (Exception e) {
-			LOGGER.error("Failed to start the app due to error = [{}", e.getMessage());
-		}
-	}
-
+    /**
+     * Main method to initialize the spring boot api
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+        try {
+            SpringApplication.run(Application.class, args);
+        } catch (Exception e) {
+            LOGGER.error("Failed to start the app due to error = [{}", e.getMessage());
+        }
+    }
 }

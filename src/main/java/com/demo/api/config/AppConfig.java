@@ -9,6 +9,4 @@ import org.springframework.context.annotation.Configuration;
  * @since Mar 25, 2023
  */
 @Configuration
-public class AppConfig {
-
-}
+public class AppConfig {}

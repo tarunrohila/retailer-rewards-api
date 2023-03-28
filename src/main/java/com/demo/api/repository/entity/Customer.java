@@ -1,9 +1,7 @@
 package com.demo.api.repository.entity;
 
-
 import jakarta.persistence.*;
 import lombok.*;
-
 
 /**
  * Entity class to handle customers data
@@ -21,16 +19,12 @@ import lombok.*;
 @SequenceGenerator(name = "sequence", sequenceName = "customerSequence", initialValue = 10)
 public class Customer {
 
-    /**
-     * Variable declaration for id
-     */
+    /** Variable declaration for id */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
     private Long id;
 
-    /**
-     * Variable declaration for customerName
-     */
+    /** Variable declaration for customerName */
     @Column(name = "CUSTOMER_NAME", nullable = false)
     private String customerName;
 }

@@ -1,5 +1,6 @@
 package com.demo.api.controller;
 
+import static com.demo.api.constant.AppConstants.*;
 
 import com.demo.api.service.RewardsService;
 import org.apache.logging.log4j.LogManager;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.demo.api.constant.AppConstants.*;
-
 /**
  * Class which is used to handle requests for Rewards app
  *
@@ -24,27 +23,28 @@ import static com.demo.api.constant.AppConstants.*;
 @RequestMapping(REWARDS_ENDPOINT)
 public class RewardsController {
 
-    /**
-     * Logger declaration.
-     */
+    /** Logger declaration. */
     private static final Logger LOGGER = LogManager.getLogger(RewardsController.class);
 
-    /**
-     * Autowired instance for {@link RewardsService}
-     */
+    /** Autowired instance for {@link RewardsService} */
     @Autowired
     @Qualifier(REWARDS_SERVICE)
     private RewardsService rewardsService;
 
     /**
-     * Endpoint which is used to retrieve reward points for a customer in the period of last three months
+     * Endpoint which is used to retrieve reward points for a customer in the period of last three
+     * months
+     *
      * @param customerId - customerId
      * @return rewardPoints
      */
     @GetMapping(CUSTOMER_ID_PARAM)
-    public ResponseEntity<?> retrieveRewardsForCustomer(@PathVariable(value = CUSTOMER_ID) Long customerId) {
+    public ResponseEntity<?> retrieveRewardsForCustomer(
+            @PathVariable(value = CUSTOMER_ID) Long customerId) {
         LOGGER.info("Retrieving reward points for customerId = [{}]", customerId);
-        LOGGER.debug("retrieving rewards for customerId = [{}] in RewardsController.retrieveRewardsForCustomer", customerId);
+        LOGGER.debug(
+                "retrieving rewards for customerId = [{}] in RewardsController.retrieveRewardsForCustomer",
+                customerId);
         return ResponseEntity.ok(rewardsService.retrieveRewardsForCustomer(customerId));
     }
 }

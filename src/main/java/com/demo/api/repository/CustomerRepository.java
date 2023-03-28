@@ -1,10 +1,10 @@
 package com.demo.api.repository;
 
+import static com.demo.api.constant.AppConstants.CUSTOMER_REPOSITORY;
+
 import com.demo.api.repository.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import static com.demo.api.constant.AppConstants.CUSTOMER_REPOSITORY;
 
 /**
  * Interface which is used to create customer repository to interact with DB
@@ -13,5 +13,4 @@ import static com.demo.api.constant.AppConstants.CUSTOMER_REPOSITORY;
  * @since Mar 25, 2023
  */
 @Repository(CUSTOMER_REPOSITORY)
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
-}
+public interface CustomerRepository extends JpaRepository<Customer, Long> {}

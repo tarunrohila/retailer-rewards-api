@@ -1,7 +1,6 @@
 package com.demo.api.dao;
 
 import com.demo.api.repository.entity.Transaction;
-
 import java.util.List;
 
 /**
@@ -13,7 +12,8 @@ import java.util.List;
 public interface RewardsDao {
 
     /**
-     * Method which is used to retrieve reward points for a customer in the period of last three months
+     * Method which is used to retrieve reward points for a customer in the period of last three
+     * months
      *
      * @param customerId - customerId
      * @return rewardPoints
