@@ -1,0 +1,92 @@
+{
+	"info": {
+		"_postman_id": "247978f2-8493-4869-ba66-06e44d0f4622",
+		"name": "retailer-rewards-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6492104"
+	},
+	"item": [
+		{
+			"name": "add a transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Correlation-Id",
+						"value": "{{Correlation-ID}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"1\",\r\n    \"customerName\": \"Ahsan\",\r\n    \"purchaseAmount\": 52.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve rewards for customer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Correlation-Id",
+						"value": "{{Correlation-ID}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"1\",\r\n    \"customerName\": \"Ahsan\",\r\n    \"purchaseAmount\": 52.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rewards/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rewards",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
