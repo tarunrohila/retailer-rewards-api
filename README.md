@@ -5,8 +5,8 @@ retailer-rewards-api
 Run below commands to build and run the api
 ```groovy
 cd <projects main direcoty path>
-./gradlew build
-./gradlew bootRun
+./mvnw clean install
+./mvnw spring-boot:run
 ```
 This will start application with on the default port 8080.
 
