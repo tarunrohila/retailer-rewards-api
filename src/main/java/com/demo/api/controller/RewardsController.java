@@ -1,7 +1,6 @@
 package com.demo.api.controller;
 
 
-import com.demo.api.dto.RewardsDto;
 import com.demo.api.service.RewardsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import static com.demo.api.constant.RewardsConstants.*;
+import static com.demo.api.constant.AppConstants.*;
 
 /**
  * Class which is used to handle requests for Rewards app

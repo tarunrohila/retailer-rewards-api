@@ -1,44 +1,47 @@
-package com.demo.api.dto;
+package com.demo.api.repository.entity;
 
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 
+
+
 /**
- * Dto class for RewardsDto
+ * Entity class to handle transactions
  *
  * @author Tarun Rohila
  * @since Mar 25, 2023
  */
 @Data
 @Builder
+@Entity
+@Table(name = "TRANSACTIONS")
 @NoArgsConstructor
 @AllArgsConstructor
-public class RewardsDto {
+@ToString
+@SequenceGenerator(name = "sequence", sequenceName = "transactionSequence", initialValue = 20)
+public class Transaction {
+
     /**
      * Variable declaration for id
      */
-    @NotEmpty
-    private Long customerId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequence")
+    private Long id;
 
     /**
-     * Variable declaration for customerName
+     * Variable declaration for customerId
      */
-    @NotEmpty
-    private String customerName;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "customerId", referencedColumnName = "id")
+    private Customer customer;
 
     /**
      * Variable declaration for total
@@ -53,5 +56,8 @@ public class RewardsDto {
     /**
      * Variable declaration for createDate
      */
+    @CreationTimestamp
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate createDate;
 }

@@ -2,13 +2,9 @@ package com.demo.api.dto;
 
 
 import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalDate;
 
 /**
  * Dto class for RewardsDto
@@ -20,7 +16,12 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RewardsStatementDto {
+@ToString
+public class TransactionResponse {
+
+    private Long id;
+
+
     /**
      * Variable declaration for id
      */
@@ -30,21 +31,22 @@ public class RewardsStatementDto {
     /**
      * Variable declaration for customerName
      */
-    @NotEmpty
     private String customerName;
 
     /**
      * Variable declaration for total
      */
-    private Double totalPurchase = Double.valueOf(0.0);
+    private Double purchaseAmount;
 
     /**
-     * Variable declaration for pointsEarned
+     * Variable declaration for id
      */
-    private Long totalPoints = Long.valueOf(0);
+    @NotEmpty
+    private Long pointEarned;
 
     /**
      * Variable declaration for createDate
      */
-    private Map<String, Long> pointsByMonth = new HashMap<>();
+    private LocalDate createDate;
+
 }

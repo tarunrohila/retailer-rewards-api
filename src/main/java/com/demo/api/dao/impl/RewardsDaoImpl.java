@@ -1,8 +1,9 @@
-package com.demo.api.dao;
+package com.demo.api.dao.impl;
 
+import com.demo.api.dao.RewardsDao;
 import com.demo.api.exception.RewardsException;
-import com.demo.api.repository.RewardsRepository;
-import com.demo.api.repository.entity.Rewards;
+import com.demo.api.repository.TransactionRepository;
+import com.demo.api.repository.entity.Transaction;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.demo.api.constant.RewardsConstants.REWARDS_DAO;
-import static com.demo.api.constant.RewardsConstants.REWARDS_REPOSITORY;
+import static com.demo.api.constant.AppConstants.REWARDS_DAO;
+import static com.demo.api.constant.AppConstants.TRANSACTIONS_REPOSITORY;
 
 /**
  * Implementation for @{@link RewardsDao} which is used to provide handling for methods for Retailer's Reward scheme
@@ -36,11 +37,11 @@ public class RewardsDaoImpl implements RewardsDao {
     private int lastMonthPoints;
 
     /**
-     * Autowired instance for {@link RewardsRepository}
+     * Autowired instance for {@link TransactionRepository}
      */
     @Autowired
-    @Qualifier(REWARDS_REPOSITORY)
-    private RewardsRepository rewardsRepository;
+    @Qualifier(TRANSACTIONS_REPOSITORY)
+    private TransactionRepository rewardsRepository;
     /**
      * Method which is used to retrieve reward points for a customer in the period of last three months
      *
@@ -48,7 +49,7 @@ public class RewardsDaoImpl implements RewardsDao {
      * @return rewardPoints
      */
     @Override
-    public List<Rewards> retrieveRewardsForCustomer(Long customerId) {
+    public List<Transaction> retrieveTransactionsForCustomer(Long customerId) {
         LOGGER.debug("retrieving rewards for customerId = [{}] in RewardsDaoImpl.retrieveRewardsForCustomer", customerId);
         LocalDate.now().minusMonths(3);
         return rewardsRepository

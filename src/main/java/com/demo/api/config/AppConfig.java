@@ -1,7 +1,5 @@
 package com.demo.api.config;
 
-import com.demo.api.service.RewardsService;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**

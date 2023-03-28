@@ -2,12 +2,12 @@ package com.demo.api.exception;
 
 
 /**
- * Custom exception class to handle Rewards Exception
+ * Custom exception class to handle Transaction Exception
  *
  * @author Tarun Rohila
  * @since Mar 25, 2023
  */
-public class RewardsException extends RuntimeException {
+public class TransactionException extends RuntimeException {
 
     private String message;
 
@@ -16,7 +16,7 @@ public class RewardsException extends RuntimeException {
      * detail message.  The cause is not initialized, and may subsequently be
      * initialized by a call to {@link #initCause}.
      */
-    public RewardsException() {
+    public TransactionException() {
         super();
     }
 
@@ -28,7 +28,7 @@ public class RewardsException extends RuntimeException {
      * @param message the detail message. The detail message is saved for
      *                later retrieval by the {@link #getMessage()} method.
      */
-    public RewardsException(String message) {
+    public TransactionException(String message) {
         super(message);
         this.message = message;
     }
@@ -47,7 +47,7 @@ public class RewardsException extends RuntimeException {
      *                unknown.)
      * @since 1.4
      */
-    public RewardsException(String message, Throwable cause) {
+    public TransactionException(String message, Throwable cause) {
         super(message, cause);
         this.message = message;
     }

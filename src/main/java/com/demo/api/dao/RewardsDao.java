@@ -1,6 +1,6 @@
 package com.demo.api.dao;
 
-import com.demo.api.repository.entity.Rewards;
+import com.demo.api.repository.entity.Transaction;
 
 import java.util.List;
 
@@ -18,5 +18,5 @@ public interface RewardsDao {
      * @param customerId - customerId
      * @return rewardPoints
      */
-    List<Rewards> retrieveRewardsForCustomer(Long customerId);
+    List<Transaction> retrieveTransactionsForCustomer(Long customerId);
 }
