@@ -1,19 +1,16 @@
 package com.demo.api.controller;
 
-import static com.demo.api.constant.AppConstants.TRANSACTIONS_ENDPOINT;
-import static com.demo.api.constant.AppConstants.TRANSACTIONS_SERVICE;
-
 import com.demo.api.dto.TransactionRequest;
 import com.demo.api.service.TransactionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static com.demo.api.constant.AppConstants.*;
 
 /**
  * Class which is used to handle requests for Customer Transactions
@@ -33,6 +30,58 @@ public class TransactionController {
     @Qualifier(TRANSACTIONS_SERVICE)
     private TransactionService transactionService;
 
+
+    /**
+     * Endpoint which is used to return all customer transactions for a customer
+     *
+     * @return transactions
+     */
+    @GetMapping(CUSTOMER_ENDPOINT + CUSTOMER_ID_PARAM)
+    public ResponseEntity<?> getAllCustomerTransactions(@PathVariable(value = CUSTOMER_ID) Long customerId) {
+        LOGGER.info(
+                "Retrieving all transactions for customerId = [{}]",
+                customerId);
+        LOGGER.debug(
+                "Retrieving all transactions = [{}] for customerId = [{}] in RewardsController.getAllCustomerTransactions",
+                customerId);
+        return ResponseEntity.status(HttpStatus.OK).body(transactionService.getAllCustomerTransactions(customerId));
+    }
+
+    /**
+     * Endpoint which is used to return a  transaction
+     *
+     * @param transactionId - transactionId
+     * @return transactions
+     */
+    @GetMapping(TRANSACTION_ID_PARAM)
+    public ResponseEntity<?> getTransaction(@PathVariable(value = TRANSACTION_ID) Long transactionId) {
+        LOGGER.info(
+                "Retrieving a transaction for transactionId = [{}]",
+                transactionId);
+        LOGGER.debug(
+                "Adding a transaction for transactionId = [{}] in RewardsController.getTransaction",
+                transactionId);
+        return ResponseEntity.status(HttpStatus.OK).body(transactionService.getTransaction(transactionId));
+    }
+
+
+    /**
+     * Endpoint which is used to delete a transaction
+     *
+     * @param transactionId - transactionId
+     * @return transactions
+     */
+    @DeleteMapping(TRANSACTION_ID_PARAM)
+    public ResponseEntity<?> deleteTransaction(@PathVariable(value = TRANSACTION_ID) Long transactionId) {
+        LOGGER.info(
+                "Deleting a transaction for transactionId = [{}]",
+                transactionId);
+        LOGGER.debug(
+                "Deleting a transaction for transactionId = [{}] in RewardsController.deleteTransaction",
+                transactionId);
+        return ResponseEntity.status(HttpStatus.OK).body(transactionService.deleteTransaction(transactionId));
+    }
+
     /**
      * Endpoint which is used to add at customer transaction
      *
@@ -49,6 +98,6 @@ public class TransactionController {
                 "Adding a transaction = [{}] for customerId = [{}] in RewardsController.retrieveRewardsForCustomer",
                 transaction,
                 transaction.getCustomerId());
-        return ResponseEntity.status(201).body(transactionService.addTransaction(transaction));
+        return ResponseEntity.status(HttpStatus.CREATED).body(transactionService.addTransaction(transaction));
     }
 }

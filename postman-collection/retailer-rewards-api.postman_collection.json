@@ -87,6 +87,135 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "retrieve all transactions for customer",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Correlation-Id",
+						"value": "{{Correlation-ID}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"1\",\r\n    \"customerName\": \"Ahsan\",\r\n    \"purchaseAmount\": 52.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rewards/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rewards",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve a transaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Correlation-Id",
+						"value": "{{Correlation-ID}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"1\",\r\n    \"customerName\": \"Ahsan\",\r\n    \"purchaseAmount\": 52.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rewards/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rewards",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a transaction",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Correlation-Id",
+						"value": "{{Correlation-ID}}",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "{{Authorization}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerId\": \"1\",\r\n    \"customerName\": \"Ahsan\",\r\n    \"purchaseAmount\": 52.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/rewards/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"rewards",
+						"1"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

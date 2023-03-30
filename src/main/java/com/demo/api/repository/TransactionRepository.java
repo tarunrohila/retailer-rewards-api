@@ -25,4 +25,10 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             nativeQuery = true)
     Optional<List<Transaction>> findLastThreeMonths(
             @Param("customerId") Long customerId, @Param("createDate") LocalDate createDate);
+
+    @Query(
+            value =
+                    "select * from TRANSACTIONS where CUSTOMER_ID = :customerId",
+            nativeQuery = true)
+    List<Transaction> findAllByCustomerId(@Param("customerId") Long customerId);
 }

@@ -31,7 +31,7 @@ public class Transaction {
     private Long id;
 
     /** Variable declaration for customerId */
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "customerId", referencedColumnName = "id")
     private Customer customer;
 

@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Implementation for @{@link TransactionService} which is used to handle requests for Customer
  * Transactions
@@ -76,14 +79,60 @@ public class TransactionServiceImpl implements TransactionService {
                 "Calculated Earned Point for the transaction are {} for customerId = [{}]",
                 createdTransaction.getPointsEarned(),
                 transaction.getCustomer().getId());
+        return mapTransactionEntityToObj(createdTransaction);
+    }
+
+    /**
+     * method which is used to return all customer transactions for a customer
+     *
+     * @param customerId
+     * @return transactions
+     */
+    @Override
+    public List<TransactionResponse> getAllCustomerTransactions(Long customerId) {
+        LOGGER.debug("Retrieving all transactions for a customerId = [{}] in TransactionServiceImpl.getAllCustomerTransactions", customerId);
+        List<Transaction> retrievedTransactions = transactionDao.getAllCustomerTransactions(customerId);
+        return retrievedTransactions.stream().map(transaction -> mapTransactionEntityToObj(transaction)).collect(Collectors.toList());
+    }
+
+    /**
+     * method which is used to return a  transaction
+     *
+     * @param transactionId - transactionId
+     * @return transactions
+     */
+    @Override
+    public TransactionResponse getTransaction(Long transactionId) {
+        LOGGER.debug("Retrieving transaction for a transactionId = [{}] in TransactionServiceImpl.getTransaction", transactionId);
+        Transaction retrievedTransaction = transactionDao.getTransaction(transactionId);
+        LOGGER.debug("Retrieved transaction for a transactionId = [{}] is transaction = [{}]", transactionId, retrievedTransaction);
+        return mapTransactionEntityToObj(retrievedTransaction);
+    }
+
+    private TransactionResponse mapTransactionEntityToObj(Transaction retrievedTransaction) {
         return TransactionResponse.builder()
-                .pointEarned(calculatePointsForTransaction(createdTransaction.getPurchaseAmount()))
-                .purchaseAmount(createdTransaction.getPurchaseAmount())
-                .customerName(createdTransaction.getCustomer().getCustomerName())
-                .customerId(createdTransaction.getCustomer().getId())
-                .createDate(createdTransaction.getCreateDate())
-                .id(createdTransaction.getId())
+                .pointEarned(calculatePointsForTransaction(retrievedTransaction.getPurchaseAmount()))
+                .purchaseAmount(retrievedTransaction.getPurchaseAmount())
+                .customerName(retrievedTransaction.getCustomer().getCustomerName())
+                .customerId(retrievedTransaction.getCustomer().getId())
+                .createDate(retrievedTransaction.getCreateDate())
+                .id(retrievedTransaction.getId())
                 .build();
+    }
+
+    /**
+     * method which is used to delete a transaction
+     *
+     * @param transactionId - transactionId
+     * @return transactions
+     */
+    @Override
+    public TransactionResponse deleteTransaction(Long transactionId) {
+        LOGGER.debug("Deleting transaction for a transactionId = [{}] in TransactionServiceImpl.deleteTransaction", transactionId);
+
+        Transaction deletedTransaction = transactionDao.deleteTransaction(transactionId);
+        LOGGER.debug("Deleted transaction for a transactionId = [{}] is transaction = [{}]", transactionId, deletedTransaction);
+        return mapTransactionEntityToObj(deletedTransaction);
     }
 
     /**

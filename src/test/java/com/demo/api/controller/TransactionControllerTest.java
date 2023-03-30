@@ -19,6 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 @ExtendWith(MockitoExtension.class)
 class TransactionControllerTest {
 
@@ -58,6 +60,66 @@ class TransactionControllerTest {
                 () -> {
                     ResponseEntity<?> response =
                             transactionController.addTransaction(transactionRequest);
+                });
+    }
+
+    @Test
+    void getAllCustomerTransactions() {
+        Mockito.when(transactionService.getAllCustomerTransactions(1L))
+                .thenReturn(List.of(getTransactionResponse()));
+        ResponseEntity<?> response = transactionController.getAllCustomerTransactions(1L);
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCode().value());
+    }
+
+    @Test
+    void getAllCustomerTransactionsError() {
+        Mockito.when(transactionService.getAllCustomerTransactions(1L))
+                .thenThrow(RuntimeException.class);
+        assertThrows(
+                RuntimeException.class,
+                () -> {
+                    ResponseEntity<?> response = transactionController.getAllCustomerTransactions(1L);
+                });
+    }
+
+    @Test
+    void getTransaction() {
+        Mockito.when(transactionService.getTransaction(1L))
+                .thenReturn(getTransactionResponse());
+        ResponseEntity<?> response = transactionController.getTransaction(1L);
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCode().value());
+    }
+
+    @Test
+    void getTransactionWithError() {
+        Mockito.when(transactionService.getTransaction(1L))
+                .thenThrow(RuntimeException.class);
+        assertThrows(
+                RuntimeException.class,
+                () -> {
+                    ResponseEntity<?> response = transactionController.getTransaction(1L);
+                });
+    }
+
+    @Test
+    void deleteTransaction() {
+        Mockito.when(transactionService.deleteTransaction(1L))
+                .thenReturn(getTransactionResponse());
+        ResponseEntity<?> response = transactionController.deleteTransaction(1L);
+        assertNotNull(response);
+        assertEquals(200, response.getStatusCode().value());
+    }
+
+    @Test
+    void deleteTransactionError() {
+        Mockito.when(transactionService.deleteTransaction(1L))
+                .thenThrow(RuntimeException.class);
+        assertThrows(
+                RuntimeException.class,
+                () -> {
+                    ResponseEntity<?> response = transactionController.deleteTransaction(1L);
                 });
     }
 }

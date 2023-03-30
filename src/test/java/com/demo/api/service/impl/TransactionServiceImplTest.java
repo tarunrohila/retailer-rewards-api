@@ -3,6 +3,7 @@ package com.demo.api.service.impl;
 import static com.demo.api.constant.AppConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 
 import com.demo.api.dao.impl.CustomerDaoImpl;
 import com.demo.api.dao.impl.TransactionDaoImpl;
@@ -23,6 +24,8 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.util.ReflectionTestUtils;
+
+import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 class TransactionServiceImplTest {
@@ -83,6 +86,72 @@ class TransactionServiceImplTest {
                 () -> {
                     TransactionResponse response =
                             transactionService.addTransaction(TestHelper.getTransactionRequest());
+                });
+    }
+
+
+    @Test
+    void getAllCustomerTransactions() {
+        Mockito.when(transactionDao.getAllCustomerTransactions(anyLong()))
+                .thenReturn(List.of(TestHelper.getTransaction()));
+        List<TransactionResponse> response =
+                transactionService.getAllCustomerTransactions(1L);
+        assertNotNull(response);
+        assertEquals(response.get(0).getCustomerId(), 1L);
+    }
+
+    @Test
+    void getAllCustomerTransactionsWithError() {
+        Mockito.when(transactionDao.getAllCustomerTransactions(anyLong()))
+                .thenThrow(TransactionException.class);
+               assertThrows( TransactionException.class,
+                () -> {
+                    List<TransactionResponse> response =
+                            transactionService.getAllCustomerTransactions(1L);
+                });
+    }
+
+    @Test
+    void getTransaction() {
+        Mockito.when(transactionDao.getTransaction(anyLong()))
+                .thenReturn(TestHelper.getTransaction());
+        TransactionResponse response =
+                transactionService.getTransaction(1L);
+        assertNotNull(response);
+        assertEquals(response.getCustomerId(), 1L);
+    }
+
+    @Test
+    void getTransactionWhenErrorWithTransaction() {
+        Mockito.when(transactionDao.getTransaction(anyLong()))
+                .thenThrow(TransactionException.class);
+        assertThrows(
+                TransactionException.class,
+                () -> {
+                    TransactionResponse response =
+                            transactionService.getTransaction(1L);
+                });
+    }
+
+    @Test
+    void deleteTransaction() {
+        Mockito.when(transactionDao.deleteTransaction(anyLong()))
+                .thenReturn(TestHelper.getTransaction());
+        TransactionResponse response =
+                transactionService.deleteTransaction(1L);
+        assertNotNull(response);
+        assertEquals(response.getCustomerId(), 1L);
+    }
+
+    @Test
+    void deleteTransactionWhenErrorWithTransaction() {
+        Mockito.when(transactionDao.deleteTransaction(anyLong()))
+                .thenThrow(TransactionException.class);
+        assertThrows(
+                TransactionException.class,
+                () -> {
+                    TransactionResponse response =
+                            transactionService.deleteTransaction(1L);
                 });
     }
 }
